@@ -60,7 +60,7 @@ class MyArrayListTest {
 
     @Test
     void testAddAll() {
-        List<String> empty = Arrays.asList();
+        List<String> empty = List.of();
         assertFalse(myList.addAll(empty));
 
         List<String> list = Arrays.asList("b", "u", "n", "g", "o");
