@@ -32,10 +32,10 @@ class MyHashSetTest {
     @Test
     void testAddAll() {
         List<String> list = Arrays.asList("b", "u", "n", "g", "o");
-        
+
         assertTrue(mySet.addAll(list));
         assertEquals(5, mySet.size());
-        
+
         assertTrue(mySet.contains("b"));
         assertTrue(mySet.contains("u"));
         assertTrue(mySet.contains("n"));
@@ -65,9 +65,9 @@ class MyHashSetTest {
     void testClear() {
         assertTrue(mySet.insert("Monkey"));
         assertTrue(mySet.insert("Gorilla"));
-        
+
         mySet.clear();
-        
+
         assertTrue(mySet.isEmpty());
         assertEquals(0, mySet.size());
     }

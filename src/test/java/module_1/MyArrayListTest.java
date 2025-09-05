@@ -31,7 +31,7 @@ class MyArrayListTest {
 
         assertThrows(IllegalArgumentException.class, () -> new MyArrayList<String>(-1));
     }
-    
+
     @BeforeEach
     void setUp() {
         myList = new MyArrayList<>();
@@ -100,8 +100,8 @@ class MyArrayListTest {
         assertEquals("g", myList.get(9));
         assertEquals("o", myList.get(10));
         assertEquals("!", myList.get(11));
-        
-        List<String> empty = Arrays.asList();
+
+        List<String> empty = List.of();
         assertFalse(myList.addAll(11, empty));
     }
 

@@ -29,7 +29,7 @@ public class MyArrayList<E> {
             this.elementData = new Object[0];
         }
     }
-    
+
     private void copyCollection(Collection<? extends E> collection) {
         Object[] src = collection.toArray();
         this.elementData = Arrays.copyOf(src, src.length, Object[].class);
@@ -54,9 +54,7 @@ public class MyArrayList<E> {
         }
 
         int prefLength = oldLength + Math.max(minGrowth, prefGrowth);
-        int newLength = (prefLength > minLength) ? prefLength : minLength;
-
-        return newLength;
+        return Math.max(prefLength, minLength);
     }
 
     private Object[] ensureCapacity(Object[] objects, int minCapacity) {
@@ -77,7 +75,7 @@ public class MyArrayList<E> {
             return this.ensureCapacity(this.elementData, minCapacity);
         }
     }
-   
+
     private Object[] grow() {
         return this.grow(this.size + 1);
     }
@@ -138,7 +136,7 @@ public class MyArrayList<E> {
 
             return true;
         }
-   }
+    }
 
     public E get(int index) {
         checkIndex(index);
@@ -159,15 +157,15 @@ public class MyArrayList<E> {
 
     public boolean remove(Object obj) {
         Object[] objects = this.elementData;
-        
+
         for (int i = 0; i < size; i++) {
             if (obj.equals(objects[i])) {
                 fastRemove(objects, i);
-        
+
                 return true;
             }
         }
-        
+
         return false;
     }
 
@@ -177,7 +175,7 @@ public class MyArrayList<E> {
         if (length > 0) {
             System.arraycopy(src, index + 1, this.elementData, index, length);
         }
-        
+
         this.elementData[--size] = null;
     }
 }

@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 
 public class MyHashSet<E> {
-    private HashMap<E, Object> map;
+    private final HashMap<E, Object> map;
     private static final Object PRESENT = new Object();
 
     public MyHashSet() {
