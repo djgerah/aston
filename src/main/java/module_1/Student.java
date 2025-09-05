@@ -3,8 +3,8 @@ package module_1;
 import java.util.List;
 
 public class Student {
-    private String name;
-    private List<Book> books;
+    private final String name;
+    private final List<Book> books;
 
     public Student(String name, List<Book> books) {
         this.name = name;
