@@ -3,17 +3,14 @@ package module_1;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class MyArrayListTest {
-    private MyArrayList<String> myList;
-
     @Test
-    void testConstructorWithCollection() {
-        List<String> list = Arrays.asList("b", "a", "n", "g", "a");
+    void testCollectionConstructor() {
+        List<String> list = List.of("b", "a", "n", "g", "a");
         MyArrayList<String> myList = new MyArrayList<>(list);
 
         assertEquals(5, myList.size());
@@ -25,12 +22,14 @@ class MyArrayListTest {
     }
 
     @Test
-    void testConstructorWithCapacity() {
+    void testParamConstructor() {
         MyArrayList<String> myList = new MyArrayList<>(5);
-        assertEquals(0, myList.size());
 
+        assertEquals(0, myList.size());
         assertThrows(IllegalArgumentException.class, () -> new MyArrayList<String>(-1));
     }
+
+    private MyArrayList<String> myList;
 
     @BeforeEach
     void setUp() {
@@ -63,7 +62,7 @@ class MyArrayListTest {
         List<String> empty = List.of();
         assertFalse(myList.addAll(empty));
 
-        List<String> list = Arrays.asList("b", "u", "n", "g", "o");
+        List<String> list = List.of("b", "u", "n", "g", "o");
 
         assertTrue(myList.addAll(list));
 
@@ -84,7 +83,7 @@ class MyArrayListTest {
         assertTrue(myList.add("o"));
         assertTrue(myList.add("!"));
 
-        List<String> list = Arrays.asList("-", "b", "u", "n", "g", "o");
+        List<String> list = List.of("-", "b", "u", "n", "g", "o");
         assertTrue(myList.addAll(5, list));
 
         assertEquals(12, myList.size());
