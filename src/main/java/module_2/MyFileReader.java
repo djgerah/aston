@@ -9,6 +9,9 @@ import java.nio.file.StandardOpenOption;
 import java.util.Scanner;
 
 public class MyFileReader {
+    public static void main(String[] args) {
+        runProgram();
+    }
 
     public static void greetings() {
         System.out.println("Hello! This program can read and write files.");
@@ -22,7 +25,58 @@ public class MyFileReader {
         System.out.println("To quit press \"q\" ...");
     }
 
+    public static void runProgram() {
+        Scanner console = new Scanner(System.in);
+
+        greetings();
+
+        while (true) {
+            String input = console.nextLine().trim();
+
+            if (input.equalsIgnoreCase("q")) {
+                System.out.println("\nQuit program... Bye!");
+                break;
+            }
+
+            String[] inputData = input.split("\\s+");
+
+            if (inputData.length < 2) {
+                System.err.println("\nIncorrect input! Please provide mode and file path ...");
+                printHints();
+                continue;
+            }
+
+            int mode;
+
+            try {
+                mode = Integer.parseInt(inputData[0]);
+            } catch (NumberFormatException e) {
+                System.err.println("\nWrong mode! Hint: mode must be a number 1 or 2 ...");
+                printHints();
+                continue;
+            }
+
+            String path = inputData[1];
+
+            if (mode == 1) {
+                readTheFile(path);
+            } else if (mode == 2) {
+                appendToFile(console, path);
+            } else {
+                System.err.println("\nWrong mode! Hint: mode must be a number 1 or 2 ...");
+                printHints();
+                continue;
+            }
+
+            printHints();
+        }
+
+        console.close();
+    }
+
     public static void readTheFile(String path) {
+        System.out.println("\nReading data from file: " + "\"" + path + "\" ...\n");
+
         try (BufferedReader buffer = Files.newBufferedReader(Paths.get(path))) {
             String line;
             System.out.println("\n --- Start --- \n");
@@ -51,72 +105,28 @@ public class MyFileReader {
         }
     }
 
-    public static void main(String[] args) {
+    public static void appendToFile(Scanner console, String path) {
+        System.out.println("Enter data to write to file ...");
+        System.out.println("Type \"q\" to finish.\n");
 
-        Scanner console = new Scanner(System.in);
+        StringBuilder builder = new StringBuilder();
 
-        greetings();
+        if (Files.exists(Paths.get(path))) {
+            builder.append(System.lineSeparator());
+        }
 
         while (true) {
-            String input = console.nextLine().trim();
+            String line = console.nextLine();
 
-            if (input.equalsIgnoreCase("q")) {
-                System.out.println("\nQuit program... Bye!");
+            if (line.equalsIgnoreCase("q")) {
                 break;
             }
 
-            String inputData[] = input.split(" ");
-
-            if (inputData.length < 2) {
-                System.err.println("\nIncorrect input! Please provide mode and file path ...");
-                printHints();
-                continue;
-            }
-
-            int mode;
-
-            try {
-                mode = Integer.parseInt(inputData[0]);
-            } catch (NumberFormatException e) {
-                System.err.println("\nWrong mode! Hint: mode must be a number 1 or 2 ...");
-                printHints();
-                continue;
-            }
-
-            String path = inputData[1];
-
-            if (mode == 1) {
-                System.out.println("\nReading data from file: " + "\"" + path + "\" ...\n");
-                readTheFile(path);
-            } else if (mode == 2) {
-                System.out.println("Enter data to write to file ...");
-                System.out.println("Type \"q\" to finish.\n");
-
-                StringBuilder builder = new StringBuilder();
-
-                while (true) {
-                    String line = console.nextLine();
-
-                    if (line.equalsIgnoreCase("q")) {
-                        break;
-                    }
-
-                    builder.append(line).append(System.lineSeparator());
-                }
-
-                if (writeTheFile(path, builder.toString())) {
-                    System.out.println("\nData successfully written to \"" + path + "\" ...");
-                }
-
-            } else {
-                System.err.println("\nWrong mode! Hint: mode must be a number 1 or 2 ...");
-                printHints();
-                continue;
-            }
-
-            printHints();
+            builder.append(line).append(System.lineSeparator());
         }
 
-        console.close();
+        if (writeTheFile(path, builder.toString())) {
+            System.out.println("\nData successfully written to \"" + path + "\" ...");
+        }
     }
 }
