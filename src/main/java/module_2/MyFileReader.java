@@ -74,7 +74,6 @@ public class MyFileReader {
 
         if (!Files.exists(Paths.get(path))) {
             notExist();
-
             return;
         }
 
@@ -103,7 +102,6 @@ public class MyFileReader {
         } catch (IOException e) {
             failedToReadOrWrite("write");
             System.err.println("Exception: " + e.toString());
-
             return false;
         }
     }
@@ -127,7 +125,6 @@ public class MyFileReader {
 
             if (line.equalsIgnoreCase("help") || line.equalsIgnoreCase("-h")) {
                 done = false;
-
                 break;
             }
 
